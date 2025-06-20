@@ -1,0 +1,30 @@
+body{
+    background-color: #ebe9e3;
+    /* background-color: aqua; */
+    margin:80px;
+    
+}
+
+
+/* .fonts{
+   font-family: 'Inter', 'Segoe UI', 'Helvetica Neue','sans-serif';
+} */
+.WDXL-fonts {
+ font-family: "WDXL Lubrifont SC", 'sans-serif';
+  font-optical-sizing: auto;
+  font-weight: 400px;
+  font-style: normal;
+}
+
+.logo-img{
+    width:100%;
+}
+.logo-img-div{
+    width :120px;
+}
+.name{
+    width:150px;
+}
+.link:hover{
+    text-decoration: underline;
+}
