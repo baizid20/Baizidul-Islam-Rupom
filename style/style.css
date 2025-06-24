@@ -7,28 +7,33 @@ body{
     height:100vh;
     background-image: url(../assets/coolbackgrounds-particles-filigree.png);
 }
- body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    #vanta-bg {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-    .content {
-      position: relative;
-      z-index: 1;
-      color: white;
-      text-align: center;
-      padding-top: 200px;
-      font-size: 30px;
-    }
+header {
+  position: relative;
+  z-index: 1;
+}
+   #vanta-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+  /* কনটেন্ট যেন উপরে থাকে */
+  .content {
+    position: relative;
+    z-index: 1;
+    color: white; /* পছন্দমতো রং দাও যেন দেখা যায় */
+  }
+
+  /* বডি যেন ঠিকভাবে দেখায় */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
 
 /* .fonts{
    font-family: 'Inter', 'Segoe UI', 'Helvetica Neue','sans-serif';
@@ -40,23 +45,52 @@ body{
   font-style: normal;
 }
 
-.logo-img{
-    width:100%;
+
+nav{
+  font-size: 32px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.logo-img-div{
-    width :120px;
+nav ul{
+  display: flex;
+  gap:15px;
 }
-.name{
-    width:150px;
-}
-.link:hover{
-  border-bottom: 2px solid #8E7DBE;
-  color: skyblue; 
-}
-.link a{
-    list-style-type: none;
+li{
+  list-style: none;
 }
 
-/* button{
-    background-color:  #1A73E8;
+header {
+  background-color: rgba(0, 0, 0, 0.0);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  padding: 15px;
+}
+
+header a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header a:hover {
+  color:#00FFFF;
+  transition: color 0.3s;
+}
+body.day-mode a {
+  color: black;
+}
+body.day-mode nav a:hover {
+  color:#00FFFF;
+  transition: color 0.3s;
+}
+
+#profile:hover {
+  border-color: #00FFFF;
+}
+/* Night mode text color */
+/* body.night-mode a {
+  color: white;
 } */
