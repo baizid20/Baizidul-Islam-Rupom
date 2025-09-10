@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import SocialSidebar from './SocialSidebar'; 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import profilePic from '../assets/baizidul-islam-rupom.jpeg';
@@ -60,6 +61,8 @@ const Home = () => {
   ];
 
   return (
+   <>
+    <SocialSidebar/>
     <main className="max-w-6xl mx-auto px-6 py-16 space-y-28">
 
       {/* Hero Section */}
@@ -250,6 +253,7 @@ const Home = () => {
       </section>
 
     </main>
+    </>
   );
 };
 
