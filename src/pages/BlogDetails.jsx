@@ -1,4 +1,5 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,13 @@ const BlogDetails = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-20">
+    <motion.div
+      className="max-w-3xl mx-auto px-6 py-20"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.4 }}
+    >
       <h1 className="text-3xl font-bold text-gray-900 mb-6">
         Blog Post #{postId}
       </h1>
@@ -26,7 +33,7 @@ const BlogDetails = () => {
         extend this using a real CMS or markdown files later.
       </p>
 
-      <div className="flex justify-between items-center gap-4">
+      <div className="flex justify-between items-center gap-4 mb-10">
         <button
           onClick={handlePrevious}
           disabled={postId === 1}
@@ -35,6 +42,8 @@ const BlogDetails = () => {
               ? "bg-gray-200 text-gray-400 cursor-not-allowed"
               : "bg-indigo-600 text-white hover:bg-indigo-700"
           }`}
+          aria-disabled={postId === 1}
+          aria-label="Go to previous blog post"
         >
           ← Previous
         </button>
@@ -47,11 +56,27 @@ const BlogDetails = () => {
               ? "bg-gray-200 text-gray-400 cursor-not-allowed"
               : "bg-indigo-600 text-white hover:bg-indigo-700"
           }`}
+          aria-disabled={postId === totalPosts}
+          aria-label="Go to next blog post"
         >
           Next →
         </button>
       </div>
-    </div>
+
+      <div className="text-center">
+        <Link
+          to="/blog"
+          className="inline-block px-6 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition"
+          aria-label="Back to blog list"
+        >
+          ← Back to Blogs
+        </Link>
+      </div>
+
+      <p className="text-center text-sm text-gray-500 mt-8">
+        Post {postId} of {totalPosts}
+      </p>
+    </motion.div>
   );
 };
 

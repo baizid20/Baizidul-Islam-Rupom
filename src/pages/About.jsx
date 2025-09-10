@@ -1,4 +1,6 @@
-import SocialMediaCard from './SocialMediaCard';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import SocialMediaCard from "./SocialMediaCard";
 
 const awards = [
   "Best Developer Award 2024",
@@ -21,22 +23,44 @@ const jobExperience = [
   },
 ];
 
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
 const About = () => {
+  const [openJobIndex, setOpenJobIndex] = useState(null);
+
+  const toggleJob = (idx) => {
+    setOpenJobIndex(openJobIndex === idx ? null : idx);
+  };
+
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto space-y-16">
-
       {/* Page Header */}
-      <div className="text-center">
+      <motion.div
+        className="text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeIn}
+      >
         <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">
           About <span className="text-indigo-600">Me</span>
         </h2>
         <p className="max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
           I’m a passionate Frontend Web Developer with strong expertise in React, Tailwind CSS, and modern JavaScript. I love building clean, performant interfaces and solving real-world problems through creative coding.
         </p>
-      </div>
+      </motion.div>
 
       {/* CV Section */}
-      <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-8 text-center shadow-sm">
+      <motion.div
+        className="bg-indigo-50 border border-indigo-200 rounded-xl p-8 text-center shadow-sm hover:shadow-lg transition"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeIn}
+      >
         <h3 className="text-2xl font-bold text-indigo-800 mb-3">Want to know more?</h3>
         <p className="text-gray-700 max-w-xl mx-auto mb-6">
           You can download my resume to learn more about my skills, education, and professional experience.
@@ -48,44 +72,75 @@ const About = () => {
         >
           Download My CV
         </a>
-      </div>
+      </motion.div>
 
       {/* Cards stacked vertically */}
       <div className="flex flex-col space-y-8">
-
-        {/* Social Media / Work Gallery Card */}
         {/* Awards Card */}
-        <div className="bg-white border rounded-xl p-6 shadow hover:shadow-md transition">
+        <motion.div
+          className="bg-white border rounded-xl p-6 shadow hover:shadow-md transition cursor-default"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
           <h3 className="text-2xl font-bold text-gray-800 mb-4">Awards & Recognition</h3>
           <ul className="space-y-3 text-gray-700 list-disc list-inside">
             {awards.map((award, idx) => (
               <li key={idx}>{award}</li>
             ))}
           </ul>
-        </div>
+        </motion.div>
 
-        {/* Job Experience Card */}
-        <div className="bg-white border rounded-xl p-6 shadow hover:shadow-md transition">
+        {/* Job Experience Card with Accordion */}
+        <motion.div
+          className="bg-white border rounded-xl p-6 shadow hover:shadow-md transition"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
           <h3 className="text-2xl font-bold text-gray-800 mb-4">Job Experience</h3>
-          <div className="space-y-6">
+          <div className="space-y-4">
             {jobExperience.map(({ role, company, period, description }, idx) => (
-              <div key={idx}>
-                <h4 className="text-lg font-semibold text-gray-900">
-                  {role} @ <span className="text-indigo-600">{company}</span>
-                </h4>
-                <p className="text-sm text-gray-500 italic mb-1">{period}</p>
-                <p className="text-gray-700">{description}</p>
+              <div key={idx} className="border-b border-gray-200 pb-3 last:border-none">
+                <button
+                  onClick={() => toggleJob(idx)}
+                  className="w-full flex justify-between items-center text-left focus:outline-none"
+                  aria-expanded={openJobIndex === idx}
+                  aria-controls={`job-desc-${idx}`}
+                >
+                  <h4 className="text-lg font-semibold text-gray-900">
+                    {role} @ <span className="text-indigo-600">{company}</span>
+                  </h4>
+                  <span className="text-sm text-gray-500 italic">{period}</span>
+                </button>
+                {openJobIndex === idx && (
+                  <p
+                    id={`job-desc-${idx}`}
+                    className="mt-2 text-gray-700 text-sm"
+                  >
+                    {description}
+                  </p>
+                )}
               </div>
             ))}
           </div>
-        </div>
-        
-        <SocialMediaCard />
+        </motion.div>
 
-
+        {/* Social Media / Work Gallery Card */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <SocialMediaCard />
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default About;
+

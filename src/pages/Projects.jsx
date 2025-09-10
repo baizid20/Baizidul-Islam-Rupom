@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const projectsData = [
   {
     id: 1,
@@ -6,7 +8,7 @@ const projectsData = [
     description: "A personal portfolio showcasing my skills and projects.",
     liveLink: "https://example.com",
     codeLink: "https://github.com/username/portfolio",
-    img: "https://source.unsplash.com/600x400/?portfolio,website", // example image URL
+    img: "https://source.unsplash.com/600x400/?portfolio,website",
   },
   {
     id: 2,
@@ -29,6 +31,28 @@ const projectsData = [
   // add more projects here...
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  }),
+  hover: {
+    scale: 1.05,
+    boxShadow: "0 15px 30px rgba(99, 102, 241, 0.3)", // Indigo-ish shadow
+    transition: { duration: 0.3 },
+  },
+  tap: {
+    scale: 0.97,
+    transition: { duration: 0.1 },
+  },
+};
+
 const Projects = () => {
   return (
     <section className="py-16 bg-gray-50">
@@ -37,20 +61,27 @@ const Projects = () => {
       </h2>
 
       <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-6">
-        {projectsData.map(({ id, name, tech, description, liveLink, codeLink, img }) => (
-          <a
+        {projectsData.map(({ id, name, tech, description, liveLink, codeLink, img }, i) => (
+          <motion.a
             key={id}
             href={liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="group border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col"
+            custom={i}
+            initial="hidden"
+            animate="visible"
+            whileHover="hover"
+            whileTap="tap"
+            variants={cardVariants}
+            className="group border border-gray-300 rounded-lg bg-white shadow-sm flex flex-col overflow-hidden cursor-pointer"
           >
             {/* Image */}
             <div className="w-full aspect-[3/2] overflow-hidden rounded-t-lg">
               <img
                 src={img}
                 alt={`${name} screenshot`}
-                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300"
               />
             </div>
 
@@ -71,6 +102,7 @@ const Projects = () => {
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   className="px-4 py-2 text-indigo-600 font-semibold border border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition"
+                  aria-label={`Live demo of ${name}`}
                 >
                   Live Demo
                 </a>
@@ -80,12 +112,13 @@ const Projects = () => {
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   className="px-4 py-2 text-gray-600 font-semibold border border-gray-400 rounded hover:bg-gray-800 hover:text-white transition"
+                  aria-label={`Source code of ${name}`}
                 >
                   Source Code
                 </a>
               </div>
             </div>
-          </a>
+          </motion.a>
         ))}
       </div>
     </section>
